@@ -3,7 +3,7 @@
 > Tiny Inventory Manager Web Apps
 
 ## Quick Preview
-![]("./TIM System.JPG")
+![](./TIM System.JPG)
 
 ## Build Setup
 
@@ -30,4 +30,5 @@ npm run e2e
 npm test
 ```
 
+For API you can get `api-tim` in [here](https://github.com/yanwarsolah/api-tim)
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
