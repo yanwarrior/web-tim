@@ -1,6 +1,5 @@
 import BaseService from './BaseService';
 
-
 class LoginService extends BaseService {
   constructor() {
     super();

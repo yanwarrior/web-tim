@@ -1,7 +1,7 @@
 <template>
 <div>
   <md-toolbar class="md-transparent" md-elevation="0">
-    Navigation
+    Menu
   </md-toolbar>
   <md-list>
     <md-list-item>

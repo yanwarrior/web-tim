@@ -22,11 +22,13 @@ export default new Router({
       name: 'Dashboard',
       component: Dashboard,
       beforeEnter: GuardService.guardOn,
-      children: [{
+      children: [
+        {
           path: '/category-list',
           name: 'category-list',
           component: CategoryList
-      }]
+        }
+    ]
     },
     
   ]
