@@ -42,7 +42,9 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import LoginService from '@/components/services/LoginService';
+
 
 export default {
   name: 'Login',
@@ -50,12 +52,13 @@ export default {
   data() {
     return {
       form: {username: null, password: null},
-      sending: false
+      sending: false,
+      service: new LoginService()
     }
   },
   validations: {
     form: {
-      username: {required, minLength: minLength(6)},
+      username: {required, minLength: minLength(2)},
       password: {required, minLength: minLength(6)}
     }
   },
@@ -76,7 +79,14 @@ export default {
     validateLogin() {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        console.log("ok")
+        console.log("ok");
+        this.service.login('/users/token-create/', this.form)
+          .then((resp) => {
+            console.log(resp.data.results.token);
+            localStorage.setItem('token', resp.data.results.token);
+            // redirect to
+            this.$router.push('/dashboard');  
+          });
       }
     }
   }

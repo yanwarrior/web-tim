@@ -8,11 +8,11 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import Vuelidate from 'vuelidate'
 
-Vue.use(VueMaterial)
-Vue.use(Vuelidate)
+
 Vue.config.productionTip = false
 
-
+Vue.use(VueMaterial)
+Vue.use(Vuelidate)
 
 /* eslint-disable no-new */
 new Vue({
