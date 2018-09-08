@@ -1,34 +1,38 @@
 <template>
-<div>
-  <md-toolbar class="md-transparent" md-elevation="0">
-    Menu
-  </md-toolbar>
-  <md-list>
-    <md-list-item>
-      <md-icon>move_to_inbox</md-icon>
-      <span class="md-list-item-text">
-        <router-link :to="{name: 'category-list'}">Category</router-link>
-      </span>
-    </md-list-item>
-    <md-list-item>
-      <md-icon>send</md-icon>
-      <span class="md-list-item-text">Sent Mail</span>
-    </md-list-item>
-    <md-list-item>
-      <md-icon>delete</md-icon>
-      <span class="md-list-item-text">Trash</span>
-    </md-list-item>
-    <md-list-item>
-      <md-icon>error</md-icon>
-      <span class="md-list-item-text">Spam</span>
-    </md-list-item>
-  </md-list>
-</div>
+  <div>
+      <fish-menu mode="inline" style="width: 200px;">
+        <fish-option index="0" content="Dashboard"></fish-option>
+        <fish-submenu index="1" mode="inline">
+          <template slot="title">Master Data</template>
+          <fish-option index="1-0" @click="(e) => {redirect(e, '/category-list')}" content="Category"></fish-option>
+          <fish-option index="1-1" content="Lucy"></fish-option>
+          <fish-option index="1-2" content="Active"></fish-option>
+        </fish-submenu>
+        <fish-option index="2" content="Tongji"></fish-option>
+        <fish-submenu index="3" mode="inline">
+          <template slot="title">submenu</template>
+          <fish-option index="3-0" content="Jack"></fish-option>
+          <fish-option index="3-1" content="Lucy"></fish-option>
+          <fish-option index="3-2" content="Active"></fish-option>
+          <fish-submenu index="3-3" mode="inline">
+            <template slot="title">submenu-3</template>
+            <fish-option index="3-3-0" content="Jack"></fish-option>
+            <fish-option index="3-3-1" content="Lucy"></fish-option>
+            <fish-option index="3-3-2" content="Active"></fish-option>
+          </fish-submenu>
+        </fish-submenu>
+      </fish-menu>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'NavPartial'
+  name: 'NavPartial',
+  methods: {
+    redirect(e, to) {
+      this.$router.push(to);
+    }
+  }
 }
 </script>
 

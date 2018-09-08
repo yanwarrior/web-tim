@@ -1,10 +1,10 @@
 <template>
-  <span class="md-title">Tiny Inventory Manager</span>
+  <nav>
+      <div class="logo">TIM System V-0.0.1</div>
+  </nav>
 </template>
 
 <script>
 export default {
-  name: 'HeaderPartial',
-  props: ['title']
 }
 </script>

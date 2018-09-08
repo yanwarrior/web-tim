@@ -3,16 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
-import Vuelidate from 'vuelidate'
+import FishUI from 'fish-ui'
 
 
 Vue.config.productionTip = false
 
-Vue.use(VueMaterial)
-Vue.use(Vuelidate)
+Vue.use(FishUI)
 
 /* eslint-disable no-new */
 new Vue({

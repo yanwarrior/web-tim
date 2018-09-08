@@ -1,19 +1,9 @@
 <template>
-  <div class="page-container">
-    <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class="md-primary">
-        <header-partial></header-partial>
-      </md-app-toolbar>
-      <md-app-drawer md-permanent="full">
-        <nav-partial></nav-partial>
-      </md-app-drawer>
-
-      <md-app-content>
-        <!-- Content here -->
-        <router-view></router-view>
-      </md-app-content>
-    </md-app>
-  </div>
+  <fish-layout class="demo3" sider="l">
+    <header-partial slot="header"></header-partial>
+    <nav-partial slot="sider"></nav-partial>
+    <div slot="content"><router-view></router-view></div>
+  </fish-layout>
 </template>
 
 <script>
@@ -21,28 +11,38 @@ import NavPartial from '@/components/partials/NavPartial';
 import HeaderPartial from '@/components/partials/HeaderPartial';
 
 export default {
+  components: {
+    HeaderPartial,
+    NavPartial
+  },
   name: 'Dashboard',
   data() {
     return {
       title: 'My Dashboard'
     }
-  },
-  components: {
-    HeaderPartial,
-    NavPartial
   }
+  
 }
 </script>
 
 
-<style scoped>
-.md-app {
-  max-height: 400px;
-  border: 1px solid rgba(#000, .12);
-}
-
-.md-drawer {
-  width: 230px;
-}
+<style>
+.fish.layout.demo3 > .header {
+    padding: 0;
+    background-color: #235377;
+    color: azure;
+  }
+  .fish.layout.demo3 .has-sider > .content {
+    margin: 20px;
+    padding: 0.1em 1em;
+  }
+  .fish.layout.demo3 .logo {
+    padding: 1em;
+  }
+  .logo {
+    padding: 0.7em .8em;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
 </style>
 

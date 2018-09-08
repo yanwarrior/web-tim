@@ -1,54 +1,45 @@
 <template>
-  <div>
-    <form novalidate class="md-layout" @submit.prevent="validateLogin">
-      <md-card class="md-layout-item md-size-30 md-small-size-80">
-        <md-card-header>
-          <div class="md-title">Tiny Inventory Manager</div>
-        </md-card-header>
-        
-        <md-divider></md-divider>
-
-        <md-card-content>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-80">
-              <md-field :class="getValidationClass('username')">
-                <label for="username">Username</label>
-                <md-input name="username" id="username" autocomplete="given-username" v-model="form.username" :disabled="sending" />
-                <span class="md-error" v-if="!$v.form.username.required">The username is required</span>
-                <span class="md-error" v-else-if="!$v.form.username.minlength">Invalid username</span>
-              </md-field>
+    <fish-layout class="demo2" side="1">
+      <nav slot="header">
+        <div class="logo">.:: TIM System Login</div>
+      </nav>
+      <div slot="content" style="height: 300px;">
+        <h2>.:: TIM System Login</h2>
+        <form class="fish form" style="width: 250px">
+          <div class="field">
+            <div>
+              <div class="fish input left">
+                <div class="label-right"></div>  
+                <input v-model="form.username" type="text" placeholder="username..." autocomplete="off">
+                <i class="fa fa-user"></i>
+              </div>
             </div>
           </div>
-
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-80">
-              <md-field :class="getValidationClass('password')">
-                <label for="password">Password</label>
-                <md-input type="password" name="password" id="password" autocomplete="given-password" v-model="form.password" :disabled="sending" />
-                <span class="md-error" v-if="!$v.form.password.required">The password is required</span>
-                <span class="md-error" v-else-if="!$v.form.password.minlength">Invalid password</span>
-              </md-field>
+          
+          <div class="field">
+            <div>
+            <div class="fish input left">
+                <div class="label-right"></div>  
+                <input type="password" v-model="form.password" placeholder="password..." autocomplete="off">
+                <i class="fa fa-lock"></i>
+              </div>
             </div>
           </div>
-
-          <md-card-actions>
-            <md-button type="submit" class="md-raised md-primary" :disabled="sending">Login</md-button>
-          </md-card-actions>
-        </md-card-content>
-      </md-card>
-    </form>
-  </div>
+          <fish-button @click="login" type="primary">Submit</fish-button>
+        </form>
+      </div>
+    <div slot="footer">2018 @ copyright, PT. Oibro Teknologi Nusantara</div>
+    </fish-layout>
 </template>
 
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import LoginService from '@/components/services/LoginService';
-
+import HeaderPartial from '@/components/partials/HeaderPartial';
 
 export default {
   name: 'Login',
-  mixins: [validationMixin],
   data() {
     return {
       form: {username: null, password: null},
@@ -56,53 +47,35 @@ export default {
       service: new LoginService()
     }
   },
-  validations: {
-    form: {
-      username: {required, minLength: minLength(2)},
-      password: {required, minLength: minLength(6)}
-    }
-  },
   methods: {
-    getValidationClass (fieldName) {
-      const field = this.$v.form[fieldName]
-      if (field) {
-        return {'md-invalid': field.$invalid && field.$dirty }
-      }
-    },
-    
-    clearForm() {
-      this.$v.$reset()
-      this.form.username = null
-      this.form.password = null
-    },
-
-    validateLogin() {
-      this.$v.$touch()
-      if (!this.$v.$invalid) {
-        console.log("ok");
-        this.service.login('/users/token-create/', this.form)
-          .then((resp) => {
-            console.log(resp.data.results.token);
-            localStorage.setItem('token', resp.data.results.token);
-            // redirect to
-            this.$router.push('/dashboard');  
-          });
-      }
+    login(e) {
+      this.service.login('/users/token-create/', this.form)
+        .then((resp) => {
+          localStorage.setItem('token', resp.data.results.token);
+          this.$router.push('/dashboard');
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
   }
 }
 </script>
 
-<style scoped>
-.md-progress-bar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-}
-
-.md-card {
-  margin: 0 auto;
-  margin-top: 50px; 
-}
+<style>
+  .logo {
+    padding: 0.7em .8em;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: azure;
+  }
+  .fish.layout.demo2 > .header {
+    padding: 0 20px;
+    background:  #235377;
+    margin-bottom: 20px;
+  }
+  .fish.layout.demo2 > .content {
+    margin: 0 auto;
+    padding: 0.7em 1em;
+  }
 </style>

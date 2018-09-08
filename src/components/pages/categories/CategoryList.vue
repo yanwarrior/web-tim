@@ -1,37 +1,60 @@
 <template>
   <div>
-    <md-table md-card>
-      <md-table-toolbar>
-        <div class="md-toolbar-section-start">
-          <h1 class="md-title">Users</h1>
-        </div>
-        <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by name..." v-model="params.name" @keyup.enter="search" />
-        </md-field>
-      </md-table-toolbar>
-      
-      <md-table-row>
-        <md-table-head md-numeric>ID</md-table-head>
-        <md-table-head>Name</md-table-head>
-      </md-table-row>
+    <fish-card fluid color="grey">
+      <div slot="header"><strong>.:: Categories</strong></div>
+      <div class="fish table">
+        <table>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>
+                <div class="fish input small">
+                  <div class="label-right"></div>  
+                    <input type="text" v-model="params.name" @keyup.enter="search"  placeholder="Search by name" autocomplete="off"> 
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Operate</td>
+              <td><fish-button size='tiny'>New</fish-button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </fish-card>
+    <fish-divider></fish-divider>
+    <fish-card fluid color="grey">
+      <div class="fish table">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Operate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="category in categories" :key="category.id">
+              <td>{{ category.id }}</td>
+              <td>{{ category.name }}</td>
+              <td>
+                <fish-button size="tiny">Edit</fish-button>
+                <fish-button size="tiny">Delete</fish-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div slot="footer">
+        <fish-button @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
+        <fish-button v-else size="tiny">Prev</fish-button>
+        <fish-button @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
+        <fish-button v-else size="tiny">Next</fish-button>
+      </div>
+    </fish-card>
 
-      <md-table-row v-for="category in categories" :key="category.id">
-        <md-table-cell>{{ category.id }}</md-table-cell>
-        <md-table-cell>{{ category.name }}</md-table-cell>
-      </md-table-row>
-    </md-table>
-    
-    <md-card>
-      <md-card-content>
-        <md-button @click="(e) => {paginate(e, 'prev')}" v-if="prevPage" class="md-raised md-primary">Prevoius</md-button>
-        <md-button v-else class="md-raised">Prevoius</md-button>
-        <md-button @click="(e) => {paginate(e, 'next')}" v-if="nextPage" class="md-raised md-primary">Next</md-button>
-        <md-button v-else class="md-raised">Next</md-button>
-      </md-card-content>
-    </md-card>
   </div>
 </template>
-
 
 <script>
 import CategoryService from '@/components/services/CategoryService'
@@ -46,39 +69,43 @@ export default {
         page: '',
         name: ''
       },
-      nextPage: '',
-      prevPage: ''
+      links: {
+        next: null,
+        prev: null
+      }
     }
   },
   methods: {
     all() {
       this.service.all('/products/categories/', this.params)
         .then((resp) => {
-          console.log(resp.data)
           this.categories = resp.data.results
-          this.nextPage = resp.data.links.next
-          this.prevPage = resp.data.links.prev
+          this.links.next = resp.data.links.next
+          this.links.prev = resp.data.links.prev
         })
         .catch((err) => {
           console.log(err)
         })
     },
+    hand(h, record, column) {
+      return "<a>Hello</a>";
+    },
     paginate(e, type) {
       if (type == 'next') {
-        this.params.page = this.nextPage
+        this.params.page = this.links.next
         this.all()
       }
 
       if (type == 'prev') {
-        this.params.page = this.prevPage
+        this.params.page = this.links.prev
         this.all()
       }
     },
     search(e) {
       // clear next prev
       this.params.page = ''
-      this.nextPage = null
-      this.prevPage = null
+      this.links.next = null
+      this.links.prev = null
       this.all()
     },
   },
