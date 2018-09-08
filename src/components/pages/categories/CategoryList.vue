@@ -1,7 +1,7 @@
 <template>
   <div>
     <fish-card fluid color="grey">
-      <div slot="header"><strong>.:: Categories</strong></div>
+      <div slot="header"><strong>. : : Categories</strong></div>
       <div class="fish table">
         <table>
           <tbody>

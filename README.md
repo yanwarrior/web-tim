@@ -2,6 +2,9 @@
 
 > Tiny Inventory Manager Web Apps
 
+## Quick Preview
+![]("./TIM System.JPG")
+
 ## Build Setup
 
 ``` bash
