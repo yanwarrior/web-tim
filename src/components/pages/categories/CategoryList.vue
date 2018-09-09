@@ -16,7 +16,13 @@
             </tr>
             <tr>
               <td>Operate</td>
-              <td><fish-button size='tiny'>New</fish-button></td>
+              <td>
+                <fish-button size='tiny'><router-link to="/category-add">New</router-link></fish-button>
+                <fish-button @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
+                <fish-button v-else size="tiny">Prev</fish-button>
+                <fish-button @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
+                <fish-button v-else size="tiny">Next</fish-button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -44,12 +50,6 @@
             </tr>
           </tbody>
         </table>
-      </div>
-      <div slot="footer">
-        <fish-button @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
-        <fish-button v-else size="tiny">Prev</fish-button>
-        <fish-button @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
-        <fish-button v-else size="tiny">Next</fish-button>
       </div>
     </fish-card>
 

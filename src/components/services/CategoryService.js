@@ -16,6 +16,16 @@ class CategoryService extends BaseService {
       console.log(err);
     })
   }
+
+  create(endpoint, params) {
+    return this.http.post(this.buildEndpoint(endpoint), params)
+      .then((resp) => {
+        return resp
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
 
 export default CategoryService;
