@@ -1,6 +1,6 @@
 import BaseService from '@/components/services/BaseService';
 
-class CategoryService extends BaseService {
+class ProductService extends BaseService {
   constructor() {
     super();
   }
@@ -54,4 +54,4 @@ class CategoryService extends BaseService {
   }
 }
 
-export default CategoryService;
+export default ProductService;

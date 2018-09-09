@@ -5,7 +5,7 @@
         <fish-submenu index="1" mode="inline">
           <template slot="title">::: Master</template>
           <fish-option index="1-0" @click="(e) => {redirect(e, '/category-list')}" content="Category"></fish-option>
-          <fish-option index="1-1" content="Product"></fish-option>
+          <fish-option index="1-1" @click="(e) => {redirect(e, '/product-list')}" content="Product"></fish-option>
         </fish-submenu>
 
         <fish-submenu index="2" mode="inline">

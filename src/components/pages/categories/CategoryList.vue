@@ -10,7 +10,9 @@
               <td>
                 <div class="fish input small">
                   <div class="label-right"></div>  
-                    <input type="text" v-model="params.name" @keyup.enter="search"  placeholder="Search by name" autocomplete="off"> 
+                    <input type="text" v-model="params.name" 
+                    v-on:keyup.enter="search"  placeholder="Search by name" 
+                    autocomplete="off" /> 
                 </div>
               </td>
             </tr>
@@ -28,7 +30,9 @@
         </table>
       </div>
     </fish-card>
+
     <fish-divider></fish-divider>
+
     <fish-card fluid color="grey">
       <div class="fish table">
         <table>
@@ -44,8 +48,10 @@
               <td>{{ category.id }}</td>
               <td>{{ category.name }}</td>
               <td>
-                <fish-button size="tiny">Edit</fish-button>
-                <fish-button size="tiny">Delete</fish-button>
+                <fish-button size="tiny">
+                  <router-link :to="{ name: 'category-edit', params: {id: category.id} }">Edit</router-link>
+                </fish-button>
+                <fish-button size="tiny" v-on:click="(e) => deleteHandler(e, category)">Delete</fish-button>
               </td>
             </tr>
           </tbody>
@@ -87,20 +93,18 @@ export default {
           console.log(err)
         })
     },
-    hand(h, record, column) {
-      return "<a>Hello</a>";
-    },
+
     paginate(e, type) {
       if (type == 'next') {
         this.params.page = this.links.next
         this.all()
       }
-
       if (type == 'prev') {
         this.params.page = this.links.prev
         this.all()
       }
     },
+
     search(e) {
       // clear next prev
       this.params.page = ''
@@ -108,6 +112,19 @@ export default {
       this.links.prev = null
       this.all()
     },
+
+    deleteHandler(event, category) {
+      this.$popup.confirm(event, `do you delete ${category.name} ?`, () => {
+        let id = category.id
+        this.service.delete(`/products/categories/${id}/`)
+        .then(resp => {
+          this.all()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      })
+    }
   },
   
   mounted() {
