@@ -1,64 +1,28 @@
 <template>
   <div>
-    <fish-card fluid color="grey">
-      <div slot="header"><strong>. : : Categories</strong></div>
-      <div class="fish table">
-        <table>
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>
-                <div class="fish input small">
-                  <div class="label-right"></div>  
-                    <input type="text" v-model="params.name" 
-                    v-on:keyup.enter="search"  placeholder="Search by name" 
-                    autocomplete="off" /> 
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Operate</td>
-              <td>
-                <fish-button size='tiny'><router-link to="/category-add">New</router-link></fish-button>
-                <fish-button @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
-                <fish-button v-else size="tiny">Prev</fish-button>
-                <fish-button @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
-                <fish-button v-else size="tiny">Next</fish-button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <fish-card fluid color="yellow">
+      <div slot="header"><strong style="color: black">.:: Category </strong></div>
+      <fish-tabs value="summary">
+        <br>
+        <fish-tab-pane label="Summary" index="summary">
+          Please click <fish-button v-on:click="add" size='tiny'>Add</fish-button> to create new data.
+        </fish-tab-pane>
+        <fish-tab-pane label="Search" index="search">
+          <fish-input size="tiny" style="width: 400px;" v-model="params.name" v-on:keyup.enter="search" hint="Name..."></fish-input>
+          <fish-button size="tiny" v-on:click="search">Search</fish-button>
+        </fish-tab-pane>
+      </fish-tabs>
+      <fish-divider></fish-divider>
+      <fish-table :columns="categoryColumn" :data="categories" border></fish-table>
+      <div slot="footer">
+        <fish-buttons size="tiny">
+          <fish-button @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
+          <fish-button v-else size="tiny">Prev</fish-button>
+          <fish-button @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
+          <fish-button v-else size="tiny">Next</fish-button>
+        </fish-buttons>
       </div>
-    </fish-card>
-
-    <fish-divider></fish-divider>
-
-    <fish-card fluid color="grey">
-      <div class="fish table">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Operate</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="category in categories" :key="category.id">
-              <td>{{ category.id }}</td>
-              <td>{{ category.name }}</td>
-              <td>
-                <fish-button size="tiny">
-                  <router-link :to="{ name: 'category-edit', params: {id: category.id} }">Edit</router-link>
-                </fish-button>
-                <fish-button size="tiny" v-on:click="(e) => deleteHandler(e, category)">Delete</fish-button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </fish-card>
-
+    </fish-card>   
   </div>
 </template>
 
@@ -70,6 +34,11 @@ export default {
   data() {
     return {
       categories: [],
+      categoryColumn: [
+        {title: 'ID', key: 'id'},
+        {title: 'Name', key: 'name'},
+        {title: 'Operate', key: 'operate', render: this.handleOperate}
+      ],
       service: new CategoryService(),
       params: {
         page: '',
@@ -94,6 +63,50 @@ export default {
         })
     },
 
+    add(e) {
+      this.$router.push('/category-add')
+    },
+
+    edit(e, record) {
+      this.$router.push(`/category-edit/${record.id}`)
+    },
+
+    delete(e, record) {
+      this.$popup.confirm(e, `do you delete ${record.name} ?`, () => {
+        this.service.delete(`/products/categories/${record.id}/`)
+        .then(resp => {
+          this.all()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      })
+    },
+
+    handleOperate(h, record, column) {
+      let self = this
+      return h('div', {
+        attrs: {class: 'fish buttons tiny'}
+      }, [
+        h('a', {
+          attrs: {class: 'fish button tiny'},
+          on: {
+            click(e) {
+              self.edit(e, record)
+            }
+          }
+        }, ['edit']),
+        h('a', {
+          attrs: {class: 'fish button tiny'},
+          on: {
+            click(e) {
+              self.delete(e, record)
+            }
+          }
+        }, ['delete'])
+      ])
+    },
+
     paginate(e, type) {
       if (type == 'next') {
         this.params.page = this.links.next
@@ -111,19 +124,6 @@ export default {
       this.links.next = null
       this.links.prev = null
       this.all()
-    },
-
-    deleteHandler(event, category) {
-      this.$popup.confirm(event, `do you delete ${category.name} ?`, () => {
-        let id = category.id
-        this.service.delete(`/products/categories/${id}/`)
-        .then(resp => {
-          this.all()
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      })
     }
   },
   

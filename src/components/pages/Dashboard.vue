@@ -29,8 +29,8 @@ export default {
 <style>
 .fish.layout.demo3 > .header {
     padding: 0;
-    background-color: #235377;
-    color: azure;
+    background-color: #294462;
+    color: #ffffff;
   }
   .fish.layout.demo3 .has-sider > .content {
     margin: 20px;
@@ -42,7 +42,7 @@ export default {
   .logo {
     padding: 0.7em .8em;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 </style>
 

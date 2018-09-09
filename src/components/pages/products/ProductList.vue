@@ -1,18 +1,14 @@
 <template>
   <div>
     <!-- Segment 1 -->
-    <fish-card fluid>
-      <div slot="header"><strong>.:: Products</strong></div>
-      <fish-tabs value="search">
-        <fish-tab-pane label="Search" index="search">User</fish-tab-pane>
+    <fish-card fluid color="yellow">
+      <div slot="header"><strong style="color: black;">.:: Products</strong></div>
+      <fish-tabs value="summary">
         <fish-tab-pane label="Summary" index="summary">Role</fish-tab-pane>
+        <fish-tab-pane label="Search" index="search">User</fish-tab-pane>
       </fish-tabs>
-    </fish-card>
-    
-    <fish-divider></fish-divider>
-    
-    <fish-card fluid>
-      <fish-table :columns="productColumns" :data="products"></fish-table>
+      <fish-divider></fish-divider>
+      <fish-table border :columns="productColumns" :data="products"></fish-table>
       <div slot="footer">
         <fish-buttons size="tiny">
             <fish-button>Prev</fish-button>
@@ -53,7 +49,7 @@ export default {
   },
   methods: {
     delete(e) {
-      this.$popup.confirm(event, 'do you delete it？', () => {
+      this.$popup.confirm(e, 'do you delete it？', () => {
         console.log('OK....')
       })
     },
