@@ -27,6 +27,9 @@ export default {
 
 
 <style>
+body {
+  background: #ffffff;
+}
 .fish.layout.demo3 > .header {
     padding: 0;
     background-color: #294462;

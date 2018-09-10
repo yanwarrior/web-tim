@@ -16,9 +16,9 @@
       <fish-table :columns="categoryColumn" :data="categories" border></fish-table>
       <div slot="footer">
         <fish-buttons size="tiny">
-          <fish-button @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
+          <fish-button type="primary" @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
           <fish-button v-else size="tiny">Prev</fish-button>
-          <fish-button @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
+          <fish-button type="primary" @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
           <fish-button v-else size="tiny">Next</fish-button>
         </fish-buttons>
       </div>

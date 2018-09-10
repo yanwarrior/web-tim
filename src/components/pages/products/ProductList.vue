@@ -2,7 +2,7 @@
   <div>
     <!-- Segment 1 -->
     <fish-card fluid color="yellow">
-      <div slot="header"><strong style="color: black;">.:: Products</strong></div>
+      <div slot="header"><strong class="strong-header" style="color: black;">.:: Products</strong></div>
       <fish-tabs value="summary">
         <fish-tab-pane label="Summary" index="summary">Role</fish-tab-pane>
         <fish-tab-pane label="Search" index="search">User</fish-tab-pane>
@@ -10,10 +10,13 @@
       <fish-divider></fish-divider>
       <fish-table border :columns="productColumns" :data="products"></fish-table>
       <div slot="footer">
+        <!-- pagination -->
         <fish-buttons size="tiny">
-            <fish-button>Prev</fish-button>
-            <fish-button>Next</fish-button>
-          </fish-buttons>
+          <fish-button type='primary' v-if="links.prev" v-on:click="(e) => {paginate(e, 'prev')}">Prev</fish-button>
+          <fish-button v-else>Prev</fish-button>
+          <fish-button type='primary' v-if="links.next" v-on:click="(e) => {paginate(e, 'next')}">Next</fish-button>
+          <fish-button v-else>Next</fish-button>
+        </fish-buttons>
       </div>
     </fish-card>
   </div>
@@ -92,6 +95,18 @@ export default {
           }
         }, ['delete']),
       ])
+    },
+
+    paginate(e, type) {
+      if (type == 'next') {
+        this.params.page = this.links.next
+        this.all()
+      }
+
+      if (type == 'prev') {
+        this.params.page = this.links.prev
+        this.all()
+      }
     }
   }, // end methods
   mounted() {
