@@ -4,8 +4,12 @@
     <fish-card fluid color="yellow">
       <div slot="header"><strong class="strong-header" style="color: black;">.:: Products</strong></div>
       <fish-tabs value="summary">
+        <br>
         <fish-tab-pane label="Summary" index="summary">Role</fish-tab-pane>
-        <fish-tab-pane label="Search" index="search">User</fish-tab-pane>
+        <fish-tab-pane label="Search" index="search">
+          <fish-input size='tiny' style="width: 400px" v-model="params.name" hint="Name..."></fish-input>
+          <fish-button size='tiny' v-on:click="search">Search</fish-button>
+        </fish-tab-pane>
       </fish-tabs>
       <fish-divider></fish-divider>
       <fish-table border :columns="productColumns" :data="products"></fish-table>
@@ -107,6 +111,13 @@ export default {
         this.params.page = this.links.prev
         this.all()
       }
+    },
+
+    search(e) {
+      this.params.page = ''
+      this.links.next = null
+      this.links.prev = null
+      this.all()
     }
   }, // end methods
   mounted() {
