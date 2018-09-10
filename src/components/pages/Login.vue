@@ -1,10 +1,10 @@
 <template>
     <fish-layout class="demo2" side="1">
       <nav slot="header">
-        <div class="logo">.:: TIM System Login</div>
+        <div class="logo">TIM System Login</div>
       </nav>
-      <div slot="content" style="height: 300px;">
-        <h2>.:: TIM System Login</h2>
+      <div slot="content">
+        <h2>TIM System Login</h2>
         <form class="fish form" style="width: 250px">
           <div class="field">
             <div>
@@ -28,7 +28,7 @@
           <fish-button @click="login" type="primary">Submit</fish-button>
         </form>
       </div>
-    <div slot="footer">2018 @ copyright, PT. Oibro Teknologi Nusantara</div>
+    <div slot="footer">Copyright @ 2018 Alhayyan Labs. All right reserved.</div>
     </fish-layout>
 </template>
 

@@ -64,7 +64,7 @@ export default {
     },
 
     edit(e, record) {
-      console.log('redirect edit page ', record)
+      this.$router.push(`/product-edit/${record.id}`)
     },
 
     all() {

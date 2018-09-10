@@ -9,18 +9,19 @@
           <fish-input v-model="name" hint="Name"></fish-input>
         </fish-field>
         <fish-field>
-          <fish-select v-model="categoryId" :search="seacrhCategoryChangeHandler">
+          <fish-tag v-if="category.name" index="1">{{category.name}}</fish-tag>
+          <fish-select @change="changeCategorySelected" :search="seacrhCategoryChangeHandler">
             <fish-option :index="item.id"  :content="item.name" v-for="item in categories" :key="item.id"></fish-option>
           </fish-select>
         </fish-field>
         <fish-field>
-          <fish-input v-model="stock" type="number" hint="Stock"></fish-input>
+          <fish-input-number v-model="stock" hint="Stock"></fish-input-number>
         </fish-field>
         <fish-field>
-          <fish-input v-model="stockMinimum" type="number" hint="Stock Minimum"></fish-input>
+          <fish-input-number v-model="stockMinimum" hint="Stock Minimum"></fish-input-number>
         </fish-field>
         <fish-field>
-          <fish-input v-model="price" type="number" hint="Price"></fish-input>
+          <fish-input-number v-model="price" hint="Price"></fish-input-number>
         </fish-field>
       </fish-form>
       <div slot="footer">
@@ -42,8 +43,8 @@ export default {
   name: 'ProductAdd',
   data() {
     return {
+      category: {},
       name: '',
-      categoryId: '',
       stock: null,
       stockMinimum: null,
       price: null,
@@ -66,10 +67,16 @@ export default {
       })
     },
 
+    changeCategorySelected(value) {
+      this.category = this.categories.find(category => {
+        if (category.id === value) return category; 
+      })
+    },
+
     save(e) {
       this.service.create('/products/product-add/', {
         name: this.name,
-        categoryId: this.categoryId,
+        categoryId: this.category.id,
         stock: this.stock,
         stockMinimum: this.stockMinimum,
         price: this.price

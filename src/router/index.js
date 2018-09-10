@@ -10,6 +10,7 @@ import CategoryAdd from '@/components/pages/categories/CategoryAdd'
 import CategoryEdit from '@/components/pages/categories/CategoryEdit'
 import ProductList from '@/components/pages/products/ProductList'
 import ProductAdd from '@/components/pages/products/ProductAdd'
+import ProductEdit from '@/components/pages/products/ProductEdit'
 
 
 Vue.use(Router)
@@ -31,27 +32,38 @@ export default new Router({
         {
           path: '/category-list',
           name: 'category-list',
-          component: CategoryList
+          component: CategoryList,
+          beforeEnter: GuardService.guardOn
         },
         {
           path: '/category-add',
           name: 'category-add',
-          component: CategoryAdd
+          component: CategoryAdd,
+          beforeEnter: GuardService.guardOn
         },
         {
           path: '/category-edit/:id',
           name: 'category-edit',
-          component: CategoryEdit
+          component: CategoryEdit,
+          beforeEnter: GuardService.guardOn
         },
         {
           path: '/product-list',
           name: 'product-list',
-          component: ProductList
+          component: ProductList,
+          beforeEnter: GuardService.guardOn
         },
         {
           path: '/product-add',
           name: 'product-add',
-          component: ProductAdd
+          component: ProductAdd,
+          beforeEnter: GuardService.guardOn
+        },
+        {
+          path: '/product-edit/:id',
+          name: 'product-edit',
+          component: ProductEdit,
+          beforeEnter: GuardService.guardOn
         }
       ]
     },
