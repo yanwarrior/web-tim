@@ -35,6 +35,7 @@ For API Backend you can get `api-tim` in [here](https://github.com/yanwarsolah/a
 
 ## Many Thanks
 Many thanks to `alhayyan` for spirit.
+
 ![](https://github.com/yanwarsolah/web-tim/blob/master/alhayyan.PNG)
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
