@@ -5,7 +5,9 @@
       <div slot="header"><strong class="strong-header" style="color: black;">.:: Products</strong></div>
       <fish-tabs value="summary">
         <br>
-        <fish-tab-pane label="Summary" index="summary">Role</fish-tab-pane>
+        <fish-tab-pane label="Summary" index="summary">
+          Please click <fish-button v-on:click="add" size="tiny">Add</fish-button> to create new data.
+        </fish-tab-pane>
         <fish-tab-pane label="Search" index="search">
           <fish-input size='tiny' style="width: 400px" v-model="params.name" hint="Name..."></fish-input>
           <fish-button size='tiny' v-on:click="search">Search</fish-button>
@@ -118,6 +120,10 @@ export default {
       this.links.next = null
       this.links.prev = null
       this.all()
+    },
+
+    add(e) {
+      this.$router.push('/product-add')
     }
   }, // end methods
   mounted() {

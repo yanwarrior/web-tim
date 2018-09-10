@@ -17,6 +17,12 @@ class ProductService extends BaseService {
     })
   }
 
+  create(endpoint, params) {
+    return this.http.post(this.buildEndpoint(endpoint), params)
+    .then(resp => resp)
+    .catch(err => console.log(err))
+  }
+
   get(endpoint) {
     return this.http.get(this.buildEndpoint(endpoint))
     .then((resp) => {

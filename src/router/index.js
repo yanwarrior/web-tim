@@ -9,6 +9,7 @@ import CategoryList from '@/components/pages/categories/CategoryList'
 import CategoryAdd from '@/components/pages/categories/CategoryAdd'
 import CategoryEdit from '@/components/pages/categories/CategoryEdit'
 import ProductList from '@/components/pages/products/ProductList'
+import ProductAdd from '@/components/pages/products/ProductAdd'
 
 
 Vue.use(Router)
@@ -46,6 +47,11 @@ export default new Router({
           path: '/product-list',
           name: 'product-list',
           component: ProductList
+        },
+        {
+          path: '/product-add',
+          name: 'product-add',
+          component: ProductAdd
         }
       ]
     },
