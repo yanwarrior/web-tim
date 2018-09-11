@@ -1,9 +1,7 @@
 <template>
   <div>
-    <fish-card fluid color="yellow">
-      <div slot="header">
-        <strong style="color: black">.:: Edit Category</strong>
-      </div>
+    <fish-card fluid color="grey">
+      <div slot="header">Edit Product</div>
 
       <fish-form style="width: 300px">
         <fish-field>

@@ -3,6 +3,7 @@
     <header-partial slot="header"></header-partial>
     <nav-partial slot="sider"></nav-partial>
     <div slot="content"><router-view></router-view></div>
+    <div slot="footer">Copyright @ 2018 Alhayyan Labs. All right reserved.</div>
   </fish-layout>
 </template>
 
@@ -27,17 +28,20 @@ export default {
 
 
 <style>
-body {
-  background: #ffffff;
+.fish.layout {
+  background: #fff;
+  height: 100% !important;
+  position: relative;
 }
 .fish.layout.demo3 > .header {
     padding: 0;
-    background-color: #294462;
-    color: #ffffff;
+    color: #fff;
+    background-color: #0a637e;
   }
   .fish.layout.demo3 .has-sider > .content {
     margin: 20px;
     padding: 0.1em 1em;
+    
   }
   .fish.layout.demo3 .logo {
     padding: 1em;

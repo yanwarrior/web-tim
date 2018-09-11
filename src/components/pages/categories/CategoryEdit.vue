@@ -1,26 +1,19 @@
 <template>
   <div>
     <fish-card fluid color="grey">
-      <div slot="header"><strong>. : : Edit Category</strong></div>
+      <div slot="header">Edit Category</div>
 
-      <div class="fish table">
-        <table>
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>
-                <div class="fish input small">
-                  <div class="label-right"></div>
-                  <input type="text" v-model="name" placeholder="Name..." autocomplete="off" />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <fish-form style="width: 300px">
+        <fish-field>
+          <fish-input v-model="name" hint="Name"></fish-input>
+        </fish-field>
+      </fish-form>
 
       <div slot="footer">
-        <fish-button v-on:click="save" size="tiny">Save</fish-button>
+        <fish-buttons>
+          <fish-button type="primary" v-on:click="save">Save</fish-button>
+          <fish-button v-on:click="(e) => {$router.push('/category-list')}">Cancel</fish-button>
+        </fish-buttons>
       </div>
     </fish-card>
   </div>

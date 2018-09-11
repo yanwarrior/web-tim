@@ -1,9 +1,8 @@
 <template>
   <div>
-    <fish-card fluid color="yellow">
-      <div slot="header">
-        <strong style="color: black">.:: Add Category</strong>
-      </div>
+    <fish-card fluid color="grey">
+      <div slot="header">Add Product</div>
+
       <fish-form style="width: 300px">
         <fish-field>
           <fish-input v-model="name" hint="Name"></fish-input>

@@ -1,27 +1,36 @@
 <template>
   <div>
-    <fish-card fluid color="yellow">
-      <div slot="header"><strong style="color: black">.:: Category </strong></div>
-      <fish-tabs value="summary">
-        <br>
-        <fish-tab-pane label="Summary" index="summary">
-          Please click <fish-button v-on:click="add" size='tiny'>Add</fish-button> to create new data.
+    <fish-card fluid color="grey">
+      <div slot="header">Category</div>
+
+      <fish-tabs value="operate"><br>
+
+        <fish-tab-pane label="Operate" index="operate">
+          <fish-buttons>
+            <fish-button v-on:click="add">Add</fish-button>
+          </fish-buttons>
         </fish-tab-pane>
+
         <fish-tab-pane label="Search" index="search">
-          <fish-input size="tiny" style="width: 400px;" v-model="params.name" v-on:keyup.enter="search" hint="Name..."></fish-input>
-          <fish-button size="tiny" v-on:click="search">Search</fish-button>
+          <fish-input style="width: 400px;" v-model="params.name" v-on:keyup.enter="search" hint="Name..."></fish-input>
+          <fish-button v-on:click="search">Search</fish-button>
         </fish-tab-pane>
+
       </fish-tabs>
-      <fish-divider></fish-divider>
+      
+      <br>
+      
       <fish-table :columns="categoryColumn" :data="categories" border></fish-table>
+      
       <div slot="footer">
-        <fish-buttons size="tiny">
-          <fish-button type="primary" @click="(e) => {paginate(e, 'prev')}" v-if="links.prev" size="tiny">Prev</fish-button>
-          <fish-button v-else size="tiny">Prev</fish-button>
-          <fish-button type="primary" @click="(e) => {paginate(e, 'next')}" v-if="links.next" size="tiny">Next</fish-button>
-          <fish-button v-else size="tiny">Next</fish-button>
+        <fish-buttons>
+          <fish-button type="primary" @click="(e) => {paginate(e, 'prev')}" v-if="links.prev">Prev</fish-button>
+          <fish-button v-else>Prev</fish-button>
+          <fish-button type="primary" @click="(e) => {paginate(e, 'next')}" v-if="links.next">Next</fish-button>
+          <fish-button v-else >Next</fish-button>
         </fish-buttons>
       </div>
+
     </fish-card>   
   </div>
 </template>
@@ -86,24 +95,24 @@ export default {
     handleOperate(h, record, column) {
       let self = this
       return h('div', {
-        attrs: {class: 'fish buttons tiny'}
+        attrs: {class: 'fish buttons'}
       }, [
         h('a', {
-          attrs: {class: 'fish button tiny'},
+          attrs: {class: 'fish button'},
           on: {
             click(e) {
               self.edit(e, record)
             }
           }
-        }, ['edit']),
+        }, ['Edit']),
         h('a', {
-          attrs: {class: 'fish button tiny'},
+          attrs: {class: 'fish button'},
           on: {
             click(e) {
               self.delete(e, record)
             }
           }
-        }, ['delete'])
+        }, ['Delete'])
       ])
     },
 
