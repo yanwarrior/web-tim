@@ -62,9 +62,11 @@ export default {
     }
   },
   methods: {
-    delete(e) {
-      this.$popup.confirm(e, 'do you delete it？', () => {
-        console.log('OK....')
+    delete(event, record) {
+      this.$popup.confirm(event, 'do you delete it？', () => {
+        this.service.delete(`/products/product-delete/${record.id}`)
+        .then(resp => this.all())
+        .catch(err => console.log(err))
       })
     },
 
@@ -101,7 +103,7 @@ export default {
           attrs: {class: 'fish button'},
           on: {
             click(e) {
-              self.delete(e)
+              self.delete(e, record)
             }
           }
         }, ['Delete']),
